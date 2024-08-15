@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa com Polígono e Ponto</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    // Criar o mapa
+    var map = L.map('map').setView([-29.7119, -51.1345], 17);
+
+    // Adicionar camada de tile do OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // Coordenadas do polígono
+    var polygonCoords = [
+        [-29.711837419802364, -51.1343322943924],
+        [-29.711856056414003, -51.13457771651726],
+        [-29.71205290541315, -51.13457369320374],
+        [-29.71203426883805, -51.13430815451127],
+        [-29.711837419802364, -51.1343322943924] // Fechar o polígono
+    ];
+
+    // Adicionar o polígono ao mapa
+    var polygon = L.polygon(polygonCoords, {
+        color: 'blue',
+        weight: 2,
+        fillOpacity: 0.5
+    }).addTo(map);
+
+    // Coordenadas do ponto dentro do polígono
+    var pointCoords = [-29.711900, -51.134450];
+
+    // Adicionar o ponto ao mapa
+    var marker = L.marker(pointCoords).addTo(map)
+        .bindPopup('Ponto dentro do polígono')
+        .openPopup();
+</script>
+</body>
+</html>
